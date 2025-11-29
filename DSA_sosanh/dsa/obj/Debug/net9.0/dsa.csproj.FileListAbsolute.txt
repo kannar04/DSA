@@ -1,0 +1,58 @@
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\obj\Debug\net9.0\dsa.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\obj\Debug\net9.0\dsa.AssemblyInfoInputs.cache
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\obj\Debug\net9.0\dsa.AssemblyInfo.cs
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\obj\Debug\net9.0\dsa.csproj.CoreCompileInputs.cache
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\bin\Debug\net9.0\dsa.exe
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\bin\Debug\net9.0\dsa.deps.json
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\bin\Debug\net9.0\dsa.runtimeconfig.json
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\bin\Debug\net9.0\dsa.dll
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\bin\Debug\net9.0\dsa.pdb
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\obj\Debug\net9.0\dsa.dll
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\obj\Debug\net9.0\refint\dsa.dll
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\obj\Debug\net9.0\dsa.pdb
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\obj\Debug\net9.0\dsa.genruntimeconfig.cache
+c:\Users\phong\OneDrive\lập trình\dự án dssa\dsa\obj\Debug\net9.0\ref\dsa.dll
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\bin\Debug\net9.0\dsa.exe
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\bin\Debug\net9.0\dsa.deps.json
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\bin\Debug\net9.0\dsa.runtimeconfig.json
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\bin\Debug\net9.0\dsa.dll
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\bin\Debug\net9.0\dsa.pdb
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\obj\Debug\net9.0\dsa.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\obj\Debug\net9.0\dsa.AssemblyInfoInputs.cache
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\obj\Debug\net9.0\dsa.AssemblyInfo.cs
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\obj\Debug\net9.0\dsa.csproj.CoreCompileInputs.cache
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\obj\Debug\net9.0\dsa.dll
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\obj\Debug\net9.0\refint\dsa.dll
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\obj\Debug\net9.0\dsa.pdb
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\obj\Debug\net9.0\dsa.genruntimeconfig.cache
+c:\Users\phong\OneDrive\lập trình\d---n-dsa-main\dsa\obj\Debug\net9.0\ref\dsa.dll
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\bin\Debug\net9.0\dsa.exe
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\bin\Debug\net9.0\dsa.deps.json
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\bin\Debug\net9.0\dsa.runtimeconfig.json
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\bin\Debug\net9.0\dsa.dll
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\bin\Debug\net9.0\dsa.pdb
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\dsa.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\dsa.AssemblyInfoInputs.cache
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\dsa.AssemblyInfo.cs
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\dsa.csproj.CoreCompileInputs.cache
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\dsa.dll
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\refint\dsa.dll
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\dsa.pdb
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\dsa.genruntimeconfig.cache
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\ref\dsa.dll
+c:\Users\phong\OneDrive\lập trình\DSA\dsa\obj\Debug\net9.0\dsa.sourcelink.json
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\bin\Debug\net9.0\dsa.exe
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\bin\Debug\net9.0\dsa.deps.json
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\bin\Debug\net9.0\dsa.runtimeconfig.json
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\bin\Debug\net9.0\dsa.dll
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\bin\Debug\net9.0\dsa.pdb
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\dsa.GeneratedMSBuildEditorConfig.editorconfig
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\dsa.AssemblyInfoInputs.cache
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\dsa.AssemblyInfo.cs
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\dsa.csproj.CoreCompileInputs.cache
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\dsa.sourcelink.json
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\dsa.dll
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\refint\dsa.dll
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\dsa.pdb
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\dsa.genruntimeconfig.cache
+G:\Đỗ Sơn Thành\Project\School\dsa_project\dsa\obj\Debug\net9.0\ref\dsa.dll
