@@ -49,7 +49,7 @@ namespace FeatureControlHTMLtext
 
             // Button
             btnProcess = new Button();
-            btnProcess.Text = "Trích xuất";
+            btnProcess.Text = "Process";
             btnProcess.Location = new Point(20, 130);         // Under input box
             btnProcess.Size = new Size(100, 35);
             btnProcess.Click += BtnProcess_Click;
@@ -66,3 +66,4 @@ namespace FeatureControlHTMLtext
         }
     }
 }
+
