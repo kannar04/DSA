@@ -56,12 +56,10 @@ namespace FeatureControlHTMLtext
             Controls.Add(txtOutput);
 
             // Button
-            btnProcess = new Button
-            {
-                Text = "Process",
-                Location = new Point(20, 130),
-                Size = new Size(100, 35)
-            };
+            btnProcess = new Button();
+            btnProcess.Text = "Process";
+            btnProcess.Location = new Point(20, 130);         // Under input box
+            btnProcess.Size = new Size(100, 35);
             btnProcess.Click += BtnProcess_Click;
             Controls.Add(btnProcess);
         }
@@ -169,3 +167,4 @@ namespace FeatureControlHTMLtext
         }
     }
 }
+
