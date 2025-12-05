@@ -1,6 +1,8 @@
+using System.Text;
+
 public class HTMLParserSolution2
 {
-    private List<string> SlidingTagScan(string html)
+    public List<string> SlidingTagScan(string html)
     {
         List<string> tags = new List<string>();
 
@@ -29,7 +31,7 @@ public class HTMLParserSolution2
         return tags;
     }
 
-    private string CleanTagName(string raw)
+    public string CleanTagName(string raw)
     {
         // BỎ < > /  rồi chỉ lấy từ đầu tới khoảng trắng đầu tiên
         raw = raw.Replace("<", "").Replace(">", "").Replace("/", "").Trim();
@@ -41,7 +43,7 @@ public class HTMLParserSolution2
         return raw;
     }
 
-    private bool CheckTags(List<string> tags)
+    public bool CheckTags(List<string> tags)
     {
         MyQueue queue = new MyQueue(); // queue giả stack
 
@@ -74,23 +76,27 @@ public class HTMLParserSolution2
         return queue.IsEmpty();
     }
 
-    private string ExtractText(string html)
+    public string ExtractText(string html)
     {
         MyQueue queue = new MyQueue();
         foreach (char c in html) queue.Enqueue(c);
 
         bool inside = false;
-        string text = "";
+    
+        StringBuilder sb = new StringBuilder(); 
 
         while (!queue.IsEmpty())
         {
             char c = (char)queue.Dequeue();
             if (c == '<') inside = true;
             else if (c == '>') inside = false;
-            else if (!inside) text += c;
+            else if (!inside) 
+            {
+                sb.Append(c); // Nhanh hơn phép cộng chuỗi gấp hàng nghìn lần
+            }
         }
 
-        return text.Trim();
+        return sb.ToString().Trim();
     }
 
     public string Parse(string html)
@@ -103,3 +109,4 @@ public class HTMLParserSolution2
         return ExtractText(html);
     }
 }
+
