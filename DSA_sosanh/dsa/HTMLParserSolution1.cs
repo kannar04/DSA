@@ -1,6 +1,6 @@
 public class HTMLParserSolution1
 {
-    private MyQueue CharToQueue(string html)
+    public MyQueue CharToQueue(string html)
     {
         MyQueue queue = new MyQueue();
         foreach (char c in html)
@@ -9,7 +9,7 @@ public class HTMLParserSolution1
     }
 
     // Tách toàn bộ tag
-    private List<string> ExtractTags(MyQueue queue)
+    public List<string> ExtractTags(MyQueue queue)
     {
         List<string> tags = new List<string>();
         string cur = "";
@@ -38,7 +38,7 @@ public class HTMLParserSolution1
     }
 
     // Check hợp lệ bằng Queue, code dễ hiểu nhất
-    private bool ValidateTags(List<string> tags)
+    public bool ValidateTags(List<string> tags)
     {
         MyQueue open = new MyQueue();    // chứa tên thẻ mở
         MyQueue temp = new MyQueue();    // phục vụ lấy phần tử cuối
@@ -93,7 +93,7 @@ public class HTMLParserSolution1
         return true;
     }
 
-    private string ExtractText(MyQueue queue)
+    public string ExtractText(MyQueue queue)
     {
         string result = "";
         bool inside = false;
@@ -132,3 +132,4 @@ public class HTMLParserSolution1
         return text;
     }
 }
+
