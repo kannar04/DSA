@@ -3,130 +3,192 @@ class Program
 {
     static void Main()
     {
+        // 1. CẤU HÌNH CƠ BẢN (SETUP)
+        Console.Clear();
         Console.OutputEncoding = Encoding.UTF8;
         Console.InputEncoding = Encoding.UTF8;
 
         string bin = AppDomain.CurrentDomain.BaseDirectory;
         string path = Path.Combine(bin, "input.html");
 
+        // 2. KHU VỰC TẠO DỮ LIỆU TEST
+        // Muốn test trường hợp nào thì bỏ comment dòng đó rồi chạy lại
 
-        // Tạo file HTML lớn để test
-        HTMLTestCaseGenerator.GenerateLargeHTMLFile(path, 5000);
+        // CÁC TRƯỜNG HỢP ĐÚNG (VALID) 
 
-        // Tạo file HTML phức tạp để test
+        // HTMLTestCaseGenerator.GenerateTableTest(path);
+        // HTMLTestCaseGenerator.GenerateBlogTest(path);
+
+        // Test hiệu năng: Tạo file cực lớn (10.000 dòng)
+         HTMLTestCaseGenerator.GenerateLargeHTMLFile(path, 10000);
+
+        // Test độ sâu: Tạo file lồng nhau 500 cấp
         // HTMLTestCaseGenerator.GenerateComplexHTMLFile(path, 500);
 
-        // Test sai 1
+
+        //  CÁC TRƯỜNG HỢP LỖI (INVALID) 
+
+        // Lỗi 1: Sai thẻ đóng (Mở <p> nhưng đóng </span>)
         // HTMLTestCaseGenerator.GenerateWrongClosingTag(path);
 
-        // Test sai 2
+        // Lỗi 2: Thiếu thẻ đóng (Mở <p> nhưng quên đóng)
         // HTMLTestCaseGenerator.GenerateMissingClosingTag(path);
 
-        // Test sai 3
+        // Lỗi 3: Thiếu thẻ mở (Tự dưng có </p> mà không có mở)
         // HTMLTestCaseGenerator.GenerateMissingOpeningTag(path);
 
-        // Test sai 4
+        // Lỗi 4: Lồng sai thứ tự (Vi phạm quy tắc Nesting)
         // HTMLTestCaseGenerator.GenerateWrongNesting(path);
 
-        // Test sai 5
+        // Lỗi 5: Đóng thẻ không tồn tại (Đóng </div> mà chưa mở bao giờ)
         // HTMLTestCaseGenerator.GenerateClosingTagWithoutOpening(path);
 
-        // Test sai tổng hợp
+        // Lỗi 6: Tổng hợp nhiều lỗi linh tinh
         // HTMLTestCaseGenerator.GenerateMixedErrors(path);
-
+        
+        
+        // 3. ĐỌC FILE INPUT
+        // Kiểm tra xem file input.html có tồn tại không. Nếu không có thì báo lỗi và dừng luôn.
         AbstractFormData form = new HTMLFileForm(path);
+        
+        if (!File.Exists(path))
+        {
+            Console.WriteLine("Lỗi: Không tìm thấy file input.html!");
+            Console.WriteLine("Hãy bỏ comment một trong các hàm Generate... ở trên để tạo file.");
+            Console.ReadLine();
+            return;
+        }
+
         string html = form.Input();
 
+        // Khởi tạo 2 giải pháp (Solution 1 & Solution 2)
         HTMLParserSolution1 s1 = new HTMLParserSolution1();
         HTMLParserSolution2 s2 = new HTMLParserSolution2();
 
+
+        // 4. KIỂM TRA TÍNH HỢP LỆ TRƯỚC
+        // Dùng Solution 2 để quét nhanh xem HTML có lỗi thẻ không.
+        // Nếu lỗi thì dừng chương trình, không cần so sánh hiệu năng làm gì.
+        Console.WriteLine(">> Đang kiểm tra file HTML...");
+        string checkResult = s2.Parse(html);
+
+        if (checkResult.StartsWith("Lỗi"))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(">> KẾT QUẢ: FILE KHÔNG HỢP LỆ (INVALID)");
+            Console.ResetColor();
+            Console.ReadLine();
+            return; 
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(">> KẾT QUẢ: FILE HỢP LỆ (VALID)");
+            Console.ResetColor();
+            Console.WriteLine();
+        }
+
+
+        // 5. IN KẾT QUẢ CUỐI CÙNG 
+        // Hiển thị nội dung văn bản đã tách được ra màn hình cho người dùng xem.
+        Console.WriteLine();
+        Console.WriteLine(new string('=', 65));
+        Console.WriteLine("KẾT QUẢ TRÍCH XUẤT VĂN BẢN (PREVIEW)");
+        Console.WriteLine(new string('-', 65));
+
+        // Lấy text
+        string finalText = s2.ExtractText(html);
+
+        if (string.IsNullOrEmpty(finalText))
+        {
+            Console.WriteLine("(Không có nội dung text nào được tìm thấy)");
+        }
+        else
+        {
+            Console.WriteLine(finalText);
+        }
+        
+        Console.WriteLine(new string('=', 65));
+
+
+        // 6. SO SÁNH HIỆU NĂNG GIỮA 2 CÁCH GIẢI 
+        // Đo thời gian chạy từng bước của Solution 1 (2 Queue) và Solution 2 (1 Queue)
         Timing timer = new Timing();
         
         MyQueue s1_Queue = null;
         List<string> s1_Tags = null;
         List<string> s2_Tags = null;
 
-        Console.WriteLine("{0,-30} | {1,-15} | {2,-15}", "THUẬT TOÁN (STEP)", "SOLUTION 1 (ms)", "SOLUTION 2 (ms)");
-        Console.WriteLine(new string('-', 70));
+        Console.WriteLine("{0,-25} | {1,-15} | {2,-15}", "CÁC BƯỚC (STEPS)", "SOL 1 (2-Queue)", "SOL 2 (1-Queue)");
+        Console.WriteLine(new string('-', 65));
 
-
-        // SO SÁNH BƯỚC 1: CHUYỂN ĐỔI DỮ LIỆU (PRE-PROCESS)
-        
-        // Sol 1: Chuyển String -> Queue từng ký tự
+        // BƯỚC 6.1: CHUẨN BỊ DỮ LIỆU 
+        // Sol 1 cần chuyển string sang Queue ký tự. Sol 2 không cần bước này.
         timer.StartTime();
         s1_Queue = s1.CharToQueue(html);
         timer.StopTime();
-        double t1_Step0 = timer.Result().TotalMilliseconds;
+        double t1_S1 = timer.Result().TotalMilliseconds;
 
-        // Sol 2: Không cần bước này (0ms)
-        double t2_Step0 = 0;
+        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "1. String->Queue", t1_S1, 0.0);
 
-        Console.WriteLine("{0,-30} | {1,-15:F4} | {2,-15:F4}", "1. Convert String->Queue", t1_Step0, t2_Step0);
-
-
-        // SO SÁNH BƯỚC 2: TÁCH THẺ (TOKENIZING)
-        
-        // Sol 1: Duyệt Queue để tách thẻ
-        // Lưu ý: Phải clone Queue hoặc tạo mới vì Dequeue sẽ làm rỗng hàng đợi
+        // BƯỚC 6.2: TÁCH THẺ 
+        // Đo xem thuật toán nào bóc tách thẻ HTML nhanh hơn.
         MyQueue tempQ = s1.CharToQueue(html); 
+        
         timer.StartTime();
         s1_Tags = s1.ExtractTags(tempQ);
         timer.StopTime();
-        double t1_Step1 = timer.Result().TotalMilliseconds;
+        double t1_S2 = timer.Result().TotalMilliseconds;
 
-        // Sol 2: Duyệt String (Sliding Window)
         timer.StartTime();
         s2_Tags = s2.SlidingTagScan(html);
         timer.StopTime();
-        double t2_Step1 = timer.Result().TotalMilliseconds;
+        double t2_S2 = timer.Result().TotalMilliseconds;
 
-        Console.WriteLine("{0,-30} | {1,-15:F4} | {2,-15:F4}", "2. Extract Tags", t1_Step1, t2_Step1);
+        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "2. Extract Tags", t1_S2, t2_S2);
 
-
-        // SO SÁNH BƯỚC 3: KIỂM TRA HỢP LỆ (VALIDATION)
+        // BƯỚC 6.3: KIỂM TRA LOGIC 
+        // So sánh 2 kỹ thuật Queue: Ping-Pong vs Rotation.
         
-        // Sol 1: Dùng Queue đảo vòng (Logic phức tạp)
+        // Sol 1: Kỹ thuật Ping-Pong
         timer.StartTime();
-        bool v1 = s1.ValidateTags(s1_Tags);
+        s1.ValidateTags(s1_Tags);
         timer.StopTime();
-        double t1_Step2 = timer.Result().TotalMilliseconds;
+        double t1_S3 = timer.Result().TotalMilliseconds;
 
-        // Sol 2: Dùng Queue giả Stack (Logic clean hơn)
+        // Sol 2: Kỹ thuật Rotation 
         timer.StartTime();
-        bool v2 = s2.CheckTags(s2_Tags);
+        s2.CheckTags(s2_Tags);
         timer.StopTime();
-        double t2_Step2 = timer.Result().TotalMilliseconds;
+        double t2_S3 = timer.Result().TotalMilliseconds;
 
-        Console.WriteLine("{0,-30} | {1,-15:F4} | {2,-15:F4}", "3. Validate Logic", t1_Step2, t2_Step2);
+        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "3. Validate Logic", t1_S3, t2_S3);
 
-
-        // SO SÁNH BƯỚC 4: LẤY NỘI DUNG (EXTRACTION)
+        // BƯỚC 6.4: LẤY NỘI DUNG VĂN BẢN (EXTRACT TEXT)
+        // Đo thời gian lọc bỏ thẻ để lấy text thuần.
+        MyQueue tempQ2 = s1.CharToQueue(html);
         
-        // Sol 1: Duyệt Queue lấy text
-        MyQueue tempQ2 = s1.CharToQueue(html); // Tạo lại queue do cái cũ đã bị dequeue hết
         timer.StartTime();
-        string text1 = s1.ExtractText(tempQ2);
+        s1.ExtractText(tempQ2);
         timer.StopTime();
-        double t1_Step3 = timer.Result().TotalMilliseconds;
+        double t1_S4 = timer.Result().TotalMilliseconds;
 
-        // Sol 2: Duyệt String lấy text
         timer.StartTime();
-        string text2 = s2.ExtractText(html);
+        s2.ExtractText(html);
         timer.StopTime();
-        double t2_Step3 = timer.Result().TotalMilliseconds;
+        double t2_S4 = timer.Result().TotalMilliseconds;
 
-        Console.WriteLine("{0,-30} | {1,-15:F4} | {2,-15:F4}", "4. Extract Text", t1_Step3, t2_Step3);
+        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "4. Extract Text", t1_S4, t2_S4);
 
-        Console.WriteLine(new string('-', 70));
+
+        // 7. TỔNG KẾT THỜI GIAN
+        // Cộng tổng thời gian thực thi của từng giải pháp.
+        double total1 = t1_S1 + t1_S2 + t1_S3 + t1_S4;
+        double total2 = t2_S2 + t2_S3 + t2_S4;
         
-        // TỔNG KẾT
-        double total1 = t1_Step0 + t1_Step1 + t1_Step2 + t1_Step3;
-        double total2 = t2_Step0 + t2_Step1 + t2_Step2 + t2_Step3;
-        
-        Console.WriteLine("{0,-30} | {1,-15:F4} | {2,-15:F4}", "TOTAL TIME", total1, total2);
+        Console.WriteLine(new string('-', 65));
+        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "TỔNG THỜI GIAN (ms)", total1, total2);
 
         Console.ReadLine();
     }
 }
-
-
