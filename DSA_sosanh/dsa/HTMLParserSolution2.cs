@@ -2,16 +2,29 @@ using System.Text;
 
 public class HTMLParserSolution2
 {
-    // 1. QUÉT THẺ THEO CƠ CHẾ TRƯỢT (SLIDING WINDOW)
+    // 1. CHUYỂN ĐỔI CHUỖI INPUT THÀNH HÀNG ĐỢI CHUỖI (STRING -> QUEUE)
+    // Giúp nạp dữ liệu vào Queue để các thuật toán bên dưới có cái mà xử lý
+    private MyQueue StringToQueue(string html)
+    {
+        MyQueue q = new MyQueue();
+        foreach (char c in html) q.Enqueue(c);
+        return q;
+    }
+    
+    // 2. QUÉT THẺ THEO CƠ CHẾ TRƯỢT (SLIDING WINDOW)
     // Không cần chuyển sang Queue, duyệt string trực tiếp cho nhanh.
     public List<string> SlidingTagScan(string html)
     {
+        MyQueue queue = StringToQueue(html);
+        
         List<string> tags = new List<string>();
         bool insideTag = false;
         string currentTag = "";
 
-        foreach (char c in html)
+        while (!queue.IsEmpty())
         {
+            char c = (char)queue.Dequeue(); // Lấy từ đầu hàng đợi
+
             if (c == '<')
             {
                 insideTag = true;
@@ -48,7 +61,7 @@ public class HTMLParserSolution2
         return false;
     }
 
-    // 2. KIỂM TRA TÍNH HỢP LỆ DÙNG 1 QUEUE (ROTATION TECH)
+    // 3. KIỂM TRA TÍNH HỢP LỆ DÙNG 1 QUEUE (ROTATION TECH)
     // Cải tiến: Chỉ dùng 1 Queue duy nhất để giả lập Stack.
     public bool CheckTags(List<string> tags)
     {
@@ -56,7 +69,7 @@ public class HTMLParserSolution2
 
         foreach (var tag in tags)
         {
-            // [NEW] Bỏ qua DOCTYPE và Comment
+            // Bỏ qua DOCTYPE và Comment
             if (tag.StartsWith("<!")) continue;
 
             string cleanName = CleanTagName(tag);
@@ -88,14 +101,21 @@ public class HTMLParserSolution2
         return queue.IsEmpty();
     }
 
-    // 3. TỐI ƯU HÓA TRÍCH XUẤT VĂN BẢN (STRINGBUILDER)
+    // 4. TỐI ƯU HÓA TRÍCH XUẤT VĂN BẢN (STRINGBUILDER)
     // Dùng StringBuilder ghép chuỗi nhanh hơn cộng string (+) bình thường
     public string ExtractText(string html)
     {
+        // Nạp vào Queue
+        MyQueue queue = StringToQueue(html);
+        
         StringBuilder sb = new StringBuilder(); 
         bool inside = false;
-        foreach (char c in html) 
+        
+        // Xử lý trên Queue thay vì String
+        while (!queue.IsEmpty())
         {
+            char c = (char)queue.Dequeue();
+            
             if (c == '<') inside = true;
             else if (c == '>') inside = false;
             else if (!inside) sb.Append(c);
@@ -113,3 +133,4 @@ public class HTMLParserSolution2
         return ExtractText(html);
     }
 }
+
