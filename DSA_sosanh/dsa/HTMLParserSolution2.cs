@@ -1,9 +1,12 @@
+using System.Text;
+
 public class HTMLParserSolution2
 {
+    // 1. QUÉT THẺ THEO CƠ CHẾ TRƯỢT (SLIDING WINDOW)
+    // Không cần chuyển sang Queue, duyệt string trực tiếp cho nhanh.
     public List<string> SlidingTagScan(string html)
     {
         List<string> tags = new List<string>();
-
         bool insideTag = false;
         string currentTag = "";
 
@@ -25,86 +28,88 @@ public class HTMLParserSolution2
                 currentTag += c;
             }
         }
-
         return tags;
     }
 
-    private string CleanTagName(string raw)
+    public string CleanTagName(string raw)
     {
-        // BỎ < > /  rồi chỉ lấy từ đầu tới khoảng trắng đầu tiên
         raw = raw.Replace("<", "").Replace(">", "").Replace("/", "").Trim();
-
         int spaceIndex = raw.IndexOf(' ');
         if (spaceIndex != -1)
             raw = raw.Substring(0, spaceIndex);
-
-        return raw;
+        return raw.ToLower();
     }
 
+    //Xử lý thẻ void
+    public bool IsVoidTag(string name)
+    {
+        string[] voids = { "br", "hr", "img", "input", "meta", "link" };
+        foreach (string v in voids) if (v == name) return true;
+        return false;
+    }
+
+    // 2. KIỂM TRA TÍNH HỢP LỆ DÙNG 1 QUEUE (ROTATION TECH)
+    // Cải tiến: Chỉ dùng 1 Queue duy nhất để giả lập Stack.
     public bool CheckTags(List<string> tags)
     {
-        MyQueue queue = new MyQueue(); // queue giả stack
+        MyQueue queue = new MyQueue(); 
 
         foreach (var tag in tags)
         {
-            // Closing tag 
+            // [NEW] Bỏ qua DOCTYPE và Comment
+            if (tag.StartsWith("<!")) continue;
+
+            string cleanName = CleanTagName(tag);
+            
+            if (tag.EndsWith("/>") || IsVoidTag(cleanName)) continue;
+
             if (tag.StartsWith("</"))
             {
                 if (queue.IsEmpty()) return false;
 
+                // KỸ THUẬT XOAY VÒNG (ROTATION):
+                // Muốn lấy thằng cuối? Lấy đầu ném xuống đuôi n-1 lần.
+                // Lúc này thằng cuối sẽ trôi lên đầu -> Dequeue ra dùng luôn.
                 int size = queue.Count();
                 for (int i = 0; i < size - 1; i++)
                 {
-                    var tmp = queue.Dequeue();
-                    queue.Enqueue(tmp);
+                    queue.Enqueue(queue.Dequeue());
                 }
 
-                // pop LIFO
-                string last = CleanTagName((string)queue.Dequeue());
-                string close = CleanTagName(tag);
+                string last = (string)queue.Dequeue();
 
-                if (last != close) return false;
+                if (last != cleanName) return false;
             }
-            else if (!tag.EndsWith("/>")) // Opening tag
+            else 
             {
-                queue.Enqueue(tag);   // giữ nguyên, xử lý clean khi pop
+                queue.Enqueue(cleanName);   
             }
         }
-
         return queue.IsEmpty();
     }
 
+    // 3. TỐI ƯU HÓA TRÍCH XUẤT VĂN BẢN (STRINGBUILDER)
+    // Dùng StringBuilder ghép chuỗi nhanh hơn cộng string (+) bình thường
     public string ExtractText(string html)
     {
-        MyQueue queue = new MyQueue();
-        foreach (char c in html) queue.Enqueue(c);
-
-        bool inside = false;
-    
         StringBuilder sb = new StringBuilder(); 
-
-        while (!queue.IsEmpty())
+        bool inside = false;
+        foreach (char c in html) 
         {
-            char c = (char)queue.Dequeue();
             if (c == '<') inside = true;
             else if (c == '>') inside = false;
-            else if (!inside) 
-            {
-                sb.Append(c); // Nhanh hơn phép cộng chuỗi gấp hàng nghìn lần
-            }
+            else if (!inside) sb.Append(c);
         }
-
         return sb.ToString().Trim();
     }
 
+    // 4. HÀM TỔNG HỢP (PARSE WRAPPER)
+    // Chạy lần lượt: Lấy thẻ -> Check lỗi -> Lấy Text
     public string Parse(string html)
     {
         var tags = SlidingTagScan(html);
-
         if (!CheckTags(tags))
             return "Lỗi HTML không hợp lệ!";
-
         return ExtractText(html);
     }
 }
-
