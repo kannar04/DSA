@@ -115,7 +115,6 @@ class Program
         // Đo thời gian chạy từng bước của Solution 1 (2 Queue) và Solution 2 (1 Queue)
         Timing timer = new Timing();
         
-        MyQueue s1_Queue = null;
         List<string> s1_Tags = null;
         List<string> s2_Tags = null;
 
@@ -123,13 +122,19 @@ class Program
         Console.WriteLine(new string('-', 65));
 
         // BƯỚC 6.1: CHUẨN BỊ DỮ LIỆU 
-        // Sol 1 cần chuyển string sang Queue ký tự. Sol 2 không cần bước này.
+        // Sol 1
         timer.StartTime();
         s1_Queue = s1.CharToQueue(html);
         timer.StopTime();
         double t1_S1 = timer.Result().TotalMilliseconds;
 
-        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "1. String->Queue", t1_S1, 0.0);
+        // Sol 2
+        timer.StartTime();
+        s2.StringToQueue(html); 
+        timer.StopTime();
+        double t2_S1 = timer.Result().TotalMilliseconds;
+
+        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "1. String->Queue", t1_S1, t2_S1);
 
         // BƯỚC 6.2: TÁCH THẺ 
         // Đo xem thuật toán nào bóc tách thẻ HTML nhanh hơn.
@@ -184,7 +189,7 @@ class Program
         // 7. TỔNG KẾT THỜI GIAN
         // Cộng tổng thời gian thực thi của từng giải pháp.
         double total1 = t1_S1 + t1_S2 + t1_S3 + t1_S4;
-        double total2 = t2_S2 + t2_S3 + t2_S4;
+        double total2 = t2_S1 + t2_S2 + t2_S3 + t2_S4;
         
         Console.WriteLine(new string('-', 65));
         Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "TỔNG THỜI GIAN (ms)", total1, total2);
@@ -192,3 +197,4 @@ class Program
         Console.ReadLine();
     }
 }
+
