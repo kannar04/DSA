@@ -85,7 +85,6 @@ class Program
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(">> KẾT QUẢ: FILE HỢP LỆ (VALID)");
             Console.ResetColor();
-            Console.WriteLine();
         }
 
 

@@ -111,7 +111,7 @@ public class HTMLParserSolution2
         StringBuilder sb = new StringBuilder(); 
         bool inside = false;
         
-        // Xử lý trên Queue thay vì String
+        // Lấy nội dung thô
         while (!queue.IsEmpty())
         {
             char c = (char)queue.Dequeue();
@@ -120,6 +120,24 @@ public class HTMLParserSolution2
             else if (c == '>') inside = false;
             else if (!inside) sb.Append(c);
         }
+
+        // Tách chuỗi thô thành các dòng (Làm sạch, căn trái, xóa dòng trống)
+        string rawText = sb.ToString();
+        
+        // Tách dòng và loại bỏ các dòng trống ngay lập tức
+        string[] lines = rawText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        
+        StringBuilder finalSb = new StringBuilder();
+        foreach (string line in lines)
+        {
+            string cleanLine = line.Trim(); // Căn trái sát lề
+            
+            if (cleanLine.Length > 0)
+            {
+                finalSb.AppendLine(cleanLine); // AppendLine tự động thêm \n
+            }
+        }
+
         return sb.ToString().Trim();
     }
 

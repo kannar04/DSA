@@ -111,12 +111,30 @@ public class HTMLParserSolution1
     {
         string result = "";
         bool inside = false;
+
+        // Lấy toàn bộ nội dung thô (bao gồm cả khoảng trắng thừa)
         while (!queue.IsEmpty())
         {
             char c = (char)queue.Dequeue();
             if (c == '<') inside = true;
             else if (c == '>') inside = false;
             else if (!inside) result += c;
+        }
+
+        // Tách chuỗi thô thành các dòng (Làm sạch, căn trái, xóa dòng trống)
+        string[] lines = rawResult.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        
+        string finalResult = "";
+        foreach (string line in lines)
+        {
+            // Cắt khoảng trắng 2 đầu (Trim) -> Giúp thụt lùi về sát bên trái
+            string cleanLine = line.Trim();
+            
+            // Nếu dòng có dữ liệu thì mới lấy
+            if (cleanLine.Length > 0)
+            {
+                finalResult += cleanLine + "\n"; // Xuống dòng kiểu Shift+Enter
+            }
         }
         return result.Trim();
     }
