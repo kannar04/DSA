@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Đỗ Sơn Thành\\Project\\School\\DSA\\DSA.csproj",
+      "projectUniqueName": "G:\\Đỗ Sơn Thành\\Project\\School\\DSA\\DSA\\DSA\\DSA.csproj",
       "projectName": "DSA",
-      "projectPath": "G:\\Đỗ Sơn Thành\\Project\\School\\DSA\\DSA.csproj",
+      "projectPath": "G:\\Đỗ Sơn Thành\\Project\\School\\DSA\\DSA\\DSA\\DSA.csproj",
       "packagesPath": "C:\\Users\\Huy Vu\\.nuget\\packages\\",
-      "outputPath": "G:\\Đỗ Sơn Thành\\Project\\School\\DSA\\obj\\",
+      "outputPath": "G:\\Đỗ Sơn Thành\\Project\\School\\DSA\\DSA\\DSA\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Huy Vu\\AppData\\Roaming\\NuGet\\NuGet.Config"
