@@ -11,30 +11,36 @@ public class HTMLParserSolution1
     }
 
     // 2. TÁCH CÁC THẺ HTML TỪ HÀNG ĐỢI (EXTRACT TAGS)
-    // Duyệt Queue, gặp '<' thì bắt đầu gom, gặp '>' thì ngắt.
-    public List<string> ExtractTags(MyQueue queue)
+    public List<string> ExtractTags(MyQueue charQueue)
     {
-        List<string> tags = new List<string>();
-        string cur = "";
-        bool inside = false;
+        List<string> tags = new List<string>(); 
 
-        while (!queue.IsEmpty())
+        while (!charQueue.IsEmpty())
         {
-            char c = (char)queue.Dequeue();
+            // PHA 1: SKIP (BỎ QUA RÁC)
+            // Lấy từng ký tự ra xem, nếu chưa phải '<' thì vứt đi
+            char c = (char)charQueue.Dequeue();
+            
+            if (c != '<') 
+            {
+                continue; 
+            }
 
-            if (c == '<')
+            // PHA 2: CAPTURE (GOM THẺ)
+            string currentTag = "<";
+            
+            while (!charQueue.IsEmpty())
             {
-                inside = true;
-                cur = "<";
+                char nextChar = (char)charQueue.Dequeue();
+                currentTag += nextChar;
+
+                if (nextChar == '>')
+                {
+                    // Đã tìm thấy đáy của thẻ -> Thêm vào List
+                    tags.Add(currentTag);
+                    break; // Thoát vòng lặp con, quay lại Pha 1
+                }
             }
-            else if (c == '>' && inside)
-            {
-                cur += ">";
-                inside = false;
-                tags.Add(cur);
-            }
-            else if (inside)
-                cur += c;
         }
         return tags;
     }
@@ -139,3 +145,4 @@ public class HTMLParserSolution1
         return result.Trim();
     }
 }
+
