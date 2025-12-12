@@ -10,14 +10,15 @@ public class HTMLParserSolution1
         return queue;
     }
 
-    // 2. TÁCH CÁC THẺ HTML TỪ HÀNG ĐỢI (EXTRACT TAGS)
+    // 2. TÁCH CÁC THẺ HTML (THUẬT TOÁN: PHASE PROCESSING)
+    // Sử dụng vòng lặp lồng nhau để tách biệt 2 pha: Pha 1 tìm dấu '<' (Skip), Pha 2 gom ký tự đến dấu '>' (Capture).
     public List<string> ExtractTags(MyQueue charQueue)
     {
         List<string> tags = new List<string>(); 
 
         while (!charQueue.IsEmpty())
         {
-            // PHA 1: SKIP (BỎ QUA RÁC)
+            // SKIP (BỎ QUA RÁC)
             // Lấy từng ký tự ra xem, nếu chưa phải '<' thì vứt đi
             char c = (char)charQueue.Dequeue();
             
@@ -26,7 +27,7 @@ public class HTMLParserSolution1
                 continue; 
             }
 
-            // PHA 2: CAPTURE (GOM THẺ)
+            // CAPTURE (GOM THẺ)
             string currentTag = "<";
             
             while (!charQueue.IsEmpty())
