@@ -129,7 +129,7 @@ public class HTMLParserSolution1
         }
 
         // Tách chuỗi thô thành các dòng (Làm sạch, căn trái, xóa dòng trống)
-        string[] lines = rawResult.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] lines = result.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
         
         string finalResult = "";
         foreach (string line in lines)

@@ -134,7 +134,7 @@ class Program
         timer.StopTime();
         double t2_S1 = timer.Result().TotalMilliseconds;
 
-        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "2. Extract Tags", t1_S1, t2_S1);
+        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "1. Extract Tags", t1_S1, t2_S1);
 
         // BƯỚC 6.2: KIỂM TRA LOGIC 
         // So sánh 2 kỹ thuật Queue: Ping-Pong vs Rotation.
@@ -151,7 +151,7 @@ class Program
         timer.StopTime();
         double t2_S2 = timer.Result().TotalMilliseconds;
 
-        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "3. Validate Logic", t1_S2, t2_S2);
+        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "2. Validate Logic", t1_S2, t2_S2);
 
         // BƯỚC 6.3: LẤY NỘI DUNG VĂN BẢN (EXTRACT TEXT)
         // Đo thời gian lọc bỏ thẻ để lấy text thuần.
@@ -167,7 +167,7 @@ class Program
         timer.StopTime();
         double t2_S3 = timer.Result().TotalMilliseconds;
 
-        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "4. Extract Text", t1_S3, t2_S3);
+        Console.WriteLine("{0,-25} | {1,-15:F4} | {2,-15:F4}", "3. Extract Text", t1_S3, t2_S3);
 
 
         // 7. TỔNG KẾT THỜI GIAN
